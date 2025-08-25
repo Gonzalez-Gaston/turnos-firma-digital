@@ -1,93 +1,210 @@
-# Firma Digital Turnos 
+# Sistema de Turnos - Firma Digital Salta
 
+Sistema web para la gestión de turnos para certificados de firma digital en la Provincia de Salta, Argentina.
 
+## Características
 
-## Getting started
+- 🗓️ **Gestión de Turnos**: Sistema administrativo para gestionar turnos con tablero semanal
+- 👥 **Panel Administrativo**: Dashboard completo para administradores
+- 🔐 **Autenticación Simple**: Sistema de login para administradores
+- 💬 **Chatbot Integrado**: Conexión con WhatsApp, Telegram y webhooks n8n
+- 📱 **Responsive**: Diseño adaptable para móviles y desktop
+- 🎨 **Diseño Profesional**: Paleta de colores oficial de Salta
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Tecnologías
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- **Frontend**: React + TypeScript + Tailwind CSS
+- **Backend**: Express.js + TypeScript + PostgreSQL
+- **Base de Datos**: PostgreSQL
+- **Iconos**: Lucide React
+- **Build**: Vite
 
-## Add your files
+## Arquitectura del Sistema
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+### Frontend (Puerto 5173)
+- React con TypeScript
+- Tailwind CSS para estilos
+- Gestión de estado con Context API
+- Rutas con React Router
+
+### Backend (Puerto 3001)
+- Express.js con TypeScript
+- PostgreSQL como base de datos
+- API REST completa
+- Validación con Joi
+
+## Instalación y Configuración
+
+### 1. Frontend
+
+```bash
+# Instalar dependencias
+npm install
+
+# Iniciar servidor de desarrollo
+npm run dev
+
+# Construir para producción
+npm run build
+```
+
+### 2. Backend
+
+```bash
+# Ir al directorio del backend
+cd turnos-backend
+
+# Instalar dependencias
+npm install
+
+# Configurar variables de entorno
+cp .env.example .env
+# Editar .env con tus configuraciones de PostgreSQL
+
+# Ejecutar migraciones
+npm run migrate
+
+# Iniciar servidor de desarrollo
+npm run dev
+
+# Para producción
+npm run build
+npm start
+```
+
+### 3. Base de Datos PostgreSQL
+
+```sql
+-- Crear base de datos
+CREATE DATABASE turnos_db;
+
+-- La tabla se crea automáticamente con las migraciones
+-- Estructura de la tabla turnos:
+CREATE TABLE public.turnos (
+  id serial4 NOT NULL,
+  fecha date NULL,
+  nombre varchar NULL,
+  tipodefirma varchar NULL,
+  cuil varchar NULL,
+  dni varchar NULL,
+  organismo varchar NULL,
+  motivo varchar NULL,
+  estado varchar NULL,
+  telefono varchar NULL,
+  idcalendar varchar NULL,
+  fechahoraregistro timestamptz NULL,
+  hora time NULL,
+  CONSTRAINT turnos_pk PRIMARY KEY (id)
+);
+```
+
+## Estructura del Proyecto
 
 ```
-cd existing_repo
-git remote add origin https://gitlab-next.salta.gob.ar/sebamasaguer/firma-digital-turnos.git
-git branch -M main
-git push -uf origin main
+├── src/                          # Frontend React
+│   ├── components/
+│   │   ├── Layout/              # Header, Footer
+│   │   ├── turnos/              # Componentes de gestión de turnos
+│   │   ├── ChatbotWidget.tsx
+│   │   └── ProtectedRoute.tsx
+│   ├── contexts/                # Context providers
+│   ├── lib/                     # APIs y configuraciones
+│   ├── pages/                   # Páginas principales
+│   └── App.tsx
+├── turnos-backend/              # Backend Express.js
+│   ├── src/
+│   │   ├── database/           # Conexión y migraciones
+│   │   ├── middleware/         # Middlewares
+│   │   ├── routes/             # Rutas de la API
+│   │   ├── types/              # Tipos TypeScript
+│   │   └── server.ts
+│   └── package.json
+└── package.json                # Frontend dependencies
 ```
 
-## Integrate with your tools
+## API Endpoints
 
-- [ ] [Set up project integrations](https://gitlab-next.salta.gob.ar/sebamasaguer/firma-digital-turnos/-/settings/integrations)
+### Turnos
+- `GET /api/turnos/tablero-semanal` - Obtener tablero semanal
+- `POST /api/turnos` - Crear turno
+- `GET /api/turnos` - Listar turnos con filtros
+- `GET /api/turnos/:id` - Obtener turno por ID
+- `PUT /api/turnos/:id` - Actualizar turno
+- `DELETE /api/turnos/:id` - Eliminar turno
 
-## Collaborate with your team
+### Sistema
+- `GET /api/health` - Estado de la API
+- `GET /api/health/db` - Estado de la base de datos
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+## Funcionalidades
 
-## Test and Deploy
+### Para Administradores
+- Dashboard con estadísticas
+- Tablero semanal dinámico
+- Gestión completa de turnos (crear, confirmar, cancelar, completar)
+- Vista de calendario con slots de tiempo
+- Filtros y búsqueda
+- Autenticación segura
 
-Use the built-in continuous integration in GitLab.
+### Para Usuarios
+- Información sobre firma digital
+- Página de contacto para solicitar turnos
+- Chatbot de asistencia
+- Diseño responsive
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Tablero Semanal
 
-***
+El tablero semanal permite:
 
-# Editing this README
+- **Vista de calendario**: 7 días con slots de tiempo cada 30 minutos
+- **Gestión visual**: Colores por estado (disponible, pendiente, confirmado, etc.)
+- **Creación rápida**: Click en slot verde para crear turno
+- **Gestión de turnos**: Click en turno ocupado para ver detalles y gestionar
+- **Navegación**: Botones para ir a semana anterior/siguiente
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## Estados de Turnos
 
-## Suggestions for a good README
+- **Pendiente**: Turno creado, pendiente de confirmación
+- **Confirmado**: Turno confirmado por el administrador
+- **Cancelado**: Turno cancelado
+- **Completado**: Turno completado exitosamente
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+## Paleta de Colores
 
-## Name
-Choose a self-explaining name for your project.
+- **Primario**: #063763 (Azul institucional)
+- **Secundario**: #8BABC7 (Azul claro)
+- **Acento**: #BB1821 (Rojo)
+- **Acento Claro**: #DE6B73 (Rosa)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## Horarios de Atención
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+- **Días**: Martes y Jueves
+- **Horario**: 9:00 AM - 1:00 PM
+- **Turnos**: Cada 30 minutos
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## Credenciales de Administrador
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+- **Email**: admin@firmadigitalsalta.gob.ar
+- **Contraseña**: admin123
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## Desarrollo
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Iniciar ambos servidores
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```bash
+# Terminal 1 - Frontend
+npm run dev
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+# Terminal 2 - Backend
+cd turnos-backend
+npm run dev
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### URLs de desarrollo
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:3002
+- Admin Dashboard: http://localhost:5173/admin
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## Soporte
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Para soporte técnico, contactar a: soporte@firmadigitalsalta.gob.ar
