@@ -37,14 +37,7 @@ export function Header() {
             >
               Información
             </Link>
-            <Link
-              to="/turnos"
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                isActive('/turnos') ? 'text-primary' : 'text-gray-700'
-              }`}
-            >
-              Reservar Turno
-            </Link>
+            
             {user && isAdmin && (
               <Link
                 to="/admin"

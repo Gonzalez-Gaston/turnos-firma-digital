@@ -148,8 +148,10 @@ class TurnosApi {
     return this.request(`/turnos${query ? `?${query}` : ''}`);
   }
 
-async getTurnosAll() {
-  return this.request('/turnos');
+  // Método adicional para obtener todos los turnos sin paginación
+  async getTurnosAll(): Promise<Turno[]> {
+    return this.request<Turno[]>('/turnos');
+  }
 }
-}
+
 export const turnosApi = new TurnosApi();

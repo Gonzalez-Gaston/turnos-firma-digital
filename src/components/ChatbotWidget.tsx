@@ -6,7 +6,7 @@ export function ChatbotWidget() {
 
   const handleWhatsAppClick = () => {
     // Replace with your actual WhatsApp number
-    const phoneNumber = '5493876543210';
+    const phoneNumber = '5493872261462';
     const message = encodeURIComponent('Hola, necesito información sobre turnos para firma digital');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
@@ -18,9 +18,13 @@ export function ChatbotWidget() {
   };
 
   const handleWebhookChat = () => {
-    // This would integrate with your n8n webhook
-    // For demo purposes, we'll show an alert
-    alert('Integración con chatbot n8n - configurar webhook URL');
+    const webhookUrl = 'https://turnosia.salta.gob.ar/webhook/1aefe37c-2c32-4ae0-833b-64135d652c5b/chat';
+    const popupWindow = window.open('', 'turnosia-webhook-chat', 'width=400,height=400,menubar=no,toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes');
+    if (popupWindow) {
+      popupWindow.document.write(`<html><head><title>TurnosIA</title></head><body><iframe src="${webhookUrl}" width="100%" height="100%"></iframe></body></html>`);
+    } else {
+      alert('No se pudo abrir la ventana emergente. Asegúrate de que no esté bloqueada por el navegador.');
+    }
   };
 
   return (

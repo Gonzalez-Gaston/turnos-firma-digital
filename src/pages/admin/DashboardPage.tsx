@@ -25,8 +25,8 @@ export function DashboardPage() {
       setLoadingStats(true);
       try {
         // Traer todos los turnos (puedes optimizar con una API específica para stats)
-        const res = await turnosApi.getTurnos();
-        const turnos = res.turnos || [];
+        const res = await turnosApi.getTurnosAll( );
+        const turnos = res;
 
         // Estadísticas generales
         const total = turnos.length;
@@ -40,11 +40,7 @@ export function DashboardPage() {
         const primerDiaSemana = new Date(hoy);
         primerDiaSemana.setDate(hoy.getDate() - hoy.getDay() + 1); // Lunes
 
-        turnos.forEach(t => {
-          const fecha = new Date(t.fecha);
-          const diff = Math.floor((fecha.getTime() - primerDiaSemana.getTime()) / (1000 * 60 * 60 * 24));
-          if (diff >= 0 && diff < 5) semanal[diff]++;
-        });
+       
 
         setStats({
           total,
@@ -173,7 +169,7 @@ export function DashboardPage() {
         </div>*/}
       </div>
 
-      {/* Instructions */}
+      {/* Instructions }
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
         <h3 className="font-semibold text-blue-900 mb-3">Sistema de Gestión de Turnos</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-blue-800">
@@ -196,7 +192,7 @@ export function DashboardPage() {
             </ul>
           </div>
         </div>
-      </div>
+      </div>*/}
     </div>
   );
 
@@ -208,7 +204,7 @@ export function DashboardPage() {
             Panel de Administración
           </h1>
           <p className="text-gray-600">
-            Gestiona los turnos de firma digital con PostgreSQL
+            Gestiona los turnos de firma digital
           </p>
         </div>
 
