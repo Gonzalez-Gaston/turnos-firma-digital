@@ -43,7 +43,7 @@ k8s-deploy_to_nightly:
     POD_PORT: "123"
   environment:
     name: $POD_NAME
-    url: http://$K8S_CLUSTER_DOMAIN_NAME:30$POD_PORT
+    url: $K8S_CLUSTER_DOMAIN_NAME:30$POD_PORT
   except:
     - develop
     - main
@@ -56,7 +56,7 @@ k8s-deploy_to_testing:
     POD_PORT: "124"
   environment:
     name: $POD_NAME
-    url: http://$K8S_CLUSTER_DOMAIN_NAME:30$POD_PORT
+    url: $K8S_CLUSTER_DOMAIN_NAME:30$POD_PORT
   only:
     - develop
 
@@ -68,6 +68,6 @@ k8s-deploy_to_staging:
     POD_PORT: "125"
   environment:
     name: $POD_NAME
-    url: http://$K8S_CLUSTER_DOMAIN_NAME:30$POD_PORT
+    url: $K8S_CLUSTER_DOMAIN_NAME:30$POD_PORT
   only:
     - main
