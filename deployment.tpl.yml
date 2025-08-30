@@ -1,0 +1,55 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${POD_NAME}
+  namespace: ${K8S_DEFAULT_NS}
+  labels:
+    app: ${POD_NAME}
+  annotations:
+    app.gitlab.com/env: $CI_ENVIRONMENT_SLUG
+    app.gitlab.com/app: $CI_PROJECT_PATH_SLUG
+spec:
+  strategy:
+      type: Recreate
+  selector:
+    matchLabels:
+      app: ${POD_NAME}
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        app: ${CI_ENVIRONMENT_SLUG}
+      annotations:
+        app.gitlab.com/env: $CI_ENVIRONMENT_SLUG
+        app.gitlab.com/app: $CI_PROJECT_PATH_SLUG
+    spec:
+      containers:
+      - name: ${POD_NAME}
+        image: ${DEPLOY_SERVICE_IMAGE}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: WORKAROUND_FORCE_PULL_OF_IMAGE
+          value: "${CI_JOB_ID}"
+      imagePullSecrets:
+        - name: ${K8S_REGISTRY_DEPLOY_SECRET}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${POD_NAME}
+  namespace: ${K8S_DEFAULT_NS}
+  labels:
+    app: ${CI_ENVIRONMENT_SLUG}
+spec:
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30${POD_PORT}
+    name: http
+  selector:
+    app: ${POD_NAME}

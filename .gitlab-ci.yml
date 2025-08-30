@@ -1,0 +1,73 @@
+image: gitlab-registry.salta.gob.ar/images/laralvel-docker-dev/debian:7.4.3
+
+include:
+  - project: 'spys/devops'
+    file: '/base-template.yml'
+  - project: 'spys/devops'
+    file: '/deploy-kubernetes-template.yml'
+
+.build_template:
+  stage: build
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:$BUILD_IMAGE_TAG .
+    - docker push $CI_REGISTRY_IMAGE:$BUILD_IMAGE_TAG
+
+build_nightly:
+  extends: .build_template
+  variables:
+    BUILD_IMAGE_TAG: $NIGHTLY_TAG
+  except:
+    - develop
+    - main
+
+build_testing:
+  extends: .build_template
+  variables:
+    BUILD_IMAGE_TAG: $TESTING_TAG
+  only:
+    - develop
+
+build_staging:
+  extends: .build_template
+  variables:
+    BUILD_IMAGE_TAG: $STAGING_TAG
+  only:
+    - main
+
+k8s-deploy_to_nightly:
+  extends: .deploy_template
+  variables:
+    DOCKER_IMAGE_TAG: $NIGHTLY_TAG
+    POD_NAME: "fd-turno-nightly"
+    POD_PORT: "123"
+  environment:
+    name: $POD_NAME
+    url: http://$K8S_CLUSTER_DOMAIN_NAME:30$POD_PORT
+  except:
+    - develop
+    - main
+
+k8s-deploy_to_testing:
+  extends: .deploy_template
+  variables:
+    DOCKER_IMAGE_TAG: $TESTING_TAG
+    POD_NAME: "fd-turno-testing"
+    POD_PORT: "124"
+  environment:
+    name: $POD_NAME
+    url: http://$K8S_CLUSTER_DOMAIN_NAME:30$POD_PORT
+  only:
+    - develop
+
+k8s-deploy_to_staging:
+  extends: .deploy_template
+  variables:
+    DOCKER_IMAGE_TAG: $STAGING_TAG
+    POD_NAME: "fd-turno-staging"
+    POD_PORT: "125"
+  environment:
+    name: $POD_NAME
+    url: http://$K8S_CLUSTER_DOMAIN_NAME:30$POD_PORT
+  only:
+    - main
