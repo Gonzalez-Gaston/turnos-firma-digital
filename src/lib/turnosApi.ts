@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://kubernetes.salta.gob.ar:30122';
+const API_BASE_URL = 'http://kubernetes.salta.gob.ar:30122/api';
 
 export interface Turno {
   id: number;
