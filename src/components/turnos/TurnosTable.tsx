@@ -83,13 +83,16 @@ export function TurnosTable() {
     return badges[estado?.toLowerCase() as keyof typeof badges] || 'bg-gray-100 text-gray-800 border-gray-200';
   };
 
-  const formatDate = (dateString: string) => {
-    try {
-      return format(parseISO(dateString), 'dd/MM/yyyy', { locale: ar });
-    } catch {
-      return dateString;
-    }
-  };
+ const formatDate = (dateString: string) => {
+  try {
+    const date = parseISO(dateString);
+    date.setUTCHours(12);
+    return format(date, 'dd/MM/yyyy', { locale: ar });
+  } catch {
+    return dateString;
+  }
+};
+
 
   /*const formatDateTime = (dateString: string) => {
     try {
