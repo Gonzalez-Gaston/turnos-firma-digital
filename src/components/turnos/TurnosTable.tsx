@@ -208,7 +208,7 @@ export function TurnosTable() {
                       <Calendar className="h-4 w-4 text-gray-400 mr-2" />
                       <div>
                         <div className="text-sm font-medium text-gray-900">
-                          {turno.fecha}
+                         {formatDate(turno.fecha)}
                         </div>
                         <div className="text-sm text-gray-500 flex items-center">
                           <Clock className="h-3 w-3 mr-1" />
