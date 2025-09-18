@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Plus, Edit,Filter, Calendar, User, Phone, Clock } from 'lucide-react';
 import { turnosApi, Turno } from '../../lib/turnosApi';
 import { format, parseISO } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { ar } from 'date-fns/locale';
 import { TurnoModal } from './TurnoModal';
 import { CreateTurnoModal } from './CreateTurnoModal';
 import { EditTurnoModal } from './EditTurnoModal';
@@ -85,7 +85,7 @@ export function TurnosTable() {
 
   const formatDate = (dateString: string) => {
     try {
-      return format(parseISO(dateString), 'dd/MM/yyyy', { locale: es });
+      return format(parseISO(dateString), 'dd/MM/yyyy', { locale: ar });
     } catch {
       return dateString;
     }
