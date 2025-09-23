@@ -46,18 +46,18 @@ export function EditTurnoModal({ turno, onClose, onUpdate }: EditTurnoModalProps
   };
 
   const tiposFirma = [
-    'Persona Física',
-    'Persona Jurídica',
-    'Representante Legal',
-    'Apoderado',
-    'Token'
+    'Token',
+    'Remota',
+    'Vinculación',
+    'Renovación'
   ];
 
   const estados = [
+    'Asistió',
+    'No Asistió',
     'Temporal',
     'Reservado',
-    'Cancelado',
-    'Completado'
+    'Cancelado'
   ];
 
   return (
