@@ -46,11 +46,10 @@ export function CreateTurnoModal({ date, time, onClose, onSuccess }: CreateTurno
   };
 
   const tiposFirma = [
-    'Persona Física',
-    'Persona Jurídica',
-    'Representante Legal',
-    'Apoderado',
-    'Token'
+    'Token',
+    'Remota',
+    'Vinculación',
+    'Renovación'
   ];
 
   return (
