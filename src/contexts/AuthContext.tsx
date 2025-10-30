@@ -1,9 +1,16 @@
 import React, { createContext, useContext, useState } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002/api';
+
 interface AuthContextType {
-  user: { email: string } | null;
+  user: {
+    id: number;
+    email: string;
+    role: string;
+  } | null;
   isAdmin: boolean;
   loading: boolean;
+  error: string | null;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
@@ -11,33 +18,60 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<{ email: string } | null>(null);
+  const [user, setUser] = useState<{ id: number; email: string; role: string } | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Simple admin authentication for demo purposes
-  // In production, this should connect to your PostgreSQL backend
   const signIn = async (email: string, password: string) => {
     setLoading(true);
+    setError(null);
     try {
-      // Demo credentials - replace with actual backend authentication
-      if (email === 'admin@firmadigitalsalta.gob.ar' && password === 'admin123') {
-        setUser({ email });
-      } else {
-        throw new Error('Credenciales inválidas');
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ email, password, role: 'admin' }),
+        credentials: 'include',
+        mode: 'cors'
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Error al iniciar sesión');
       }
+
+      const data = await response.json();
+      if (!data.user) {
+        throw new Error('No se recibieron datos del usuario');
+      }
+      setUser(data.user);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al iniciar sesión');
+      throw err;
     } finally {
       setLoading(false);
     }
   };
 
   const signOut = async () => {
-    setUser(null);
+    try {
+      await fetch(`${API_URL}/auth/logout`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+    } finally {
+      setUser(null);
+    }
   };
 
   const value = {
     user,
-    isAdmin: !!user, // If user exists, they are admin
+    isAdmin: user?.role === 'admin',
     loading,
+    error,
     signIn,
     signOut,
   };

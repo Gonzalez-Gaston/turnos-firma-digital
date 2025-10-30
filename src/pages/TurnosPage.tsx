@@ -1,6 +1,6 @@
-import React from 'react';
+//import React from 'react';
 import { Calendar, Users, Clock, TrendingUp } from 'lucide-react';
-import { WeeklyScheduleBoard } from '../components/turnos/WeeklyScheduleBoard';
+//import { WeeklyScheduleBoard } from '../components/turnos/WeeklyScheduleBoard';
 
 export function TurnosPage() {
   return (
@@ -67,8 +67,7 @@ export function TurnosPage() {
           </div>
         </div>
 
-        {/* Weekly Schedule Board */}
-        <WeeklyScheduleBoard />
+
 
         {/* Instructions */}
         <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">

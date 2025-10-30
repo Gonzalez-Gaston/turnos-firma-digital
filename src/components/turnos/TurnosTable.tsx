@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Search, Plus, Edit,Filter, Calendar, User, Phone, Clock } from 'lucide-react';
 import { turnosApi, Turno } from '../../lib/turnosApi';
 import { format, parseISO } from 'date-fns';
