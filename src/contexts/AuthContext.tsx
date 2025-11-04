@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://kubernetes.salta.gob.ar:30122/api';
 
 interface AuthContextType {
   user: {
