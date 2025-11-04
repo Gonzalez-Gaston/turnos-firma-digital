@@ -10,6 +10,7 @@ import { InformationPage } from './pages/InformationPage';
 import { LoginPage } from './pages/admin/LoginPage';
 import { DashboardPage } from './pages/admin/DashboardPage';
 
+
 function App() {
   return (
     <AuthProvider>
