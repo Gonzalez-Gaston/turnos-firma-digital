@@ -2,17 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileSignature, Calendar, Shield, Users, Clock, CheckCircle } from 'lucide-react';
 
-const handleWebhookChat = () => {
-    const webhookUrl = 'https://turnosia.salta.gob.ar/webhook/1aefe37c-2c32-4ae0-833b-64135d652c5b/chat';
-    const popupWindow = window.open('', 'turnosia-webhook-chat', 'width=400,height=400,menubar=no,toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes');
-    if (popupWindow) {
-      popupWindow.document.write(`<html><head><title>TurnosIA</title></head><body><iframe src="${webhookUrl}" width="100%" height="100%"></iframe></body></html>`);
-    } else {
-      alert('No se pudo abrir la ventana emergente. Asegúrate de que no esté bloqueada por el navegador.');
-    }
-  };
-
-
 export function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -29,13 +18,14 @@ export function HomePage() {
               Reserva tu turno de manera fácil y segura.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={handleWebhookChat}
+              <Link
+                to="/turnos"
                 className="bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors inline-flex items-center justify-center space-x-2"
               >
                 <Calendar className="h-5 w-5" />
                 <span>Reservar Turno</span>
-              </button>
+              </Link>
+
               <Link
                 to="/informacion"
                 className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors border border-white/20"
@@ -157,9 +147,6 @@ export function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-     
     </div>
   );
 }

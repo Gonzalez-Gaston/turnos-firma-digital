@@ -9,6 +9,7 @@ import { HomePage } from './pages/HomePage';
 import { InformationPage } from './pages/InformationPage';
 import { LoginPage } from './pages/admin/LoginPage';
 import { DashboardPage } from './pages/admin/DashboardPage';
+import { TurnosPage } from './pages/TurnosPage';
 
 
 function App() {
@@ -19,18 +20,19 @@ function App() {
           <Header />
           <main>
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/informacion" element={<InformationPage />} />
-              <Route path="/admin/login" element={<LoginPage />} />
-              <Route 
-                path="/admin" 
-                element={
-                  <ProtectedRoute requireAdmin>
-                    <DashboardPage />
-                  </ProtectedRoute>
-                } 
-              />
-            </Routes>
+  <Route path="/" element={<HomePage />} />
+  <Route path="/informacion" element={<InformationPage />} />
+  <Route path="/turnos" element={<TurnosPage />} />
+  <Route path="/admin/login" element={<LoginPage />} />
+  <Route 
+    path="/admin" 
+    element={
+      <ProtectedRoute requireAdmin>
+        <DashboardPage />
+      </ProtectedRoute>
+    } 
+  />
+</Routes>
           </main>
           <Footer />
           <ChatbotWidget />
