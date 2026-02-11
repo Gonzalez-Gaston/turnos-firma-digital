@@ -14,7 +14,7 @@ export function TurnosPage() {
 
         <div className="w-full h-[800px] bg-white border rounded-xl overflow-hidden shadow-sm">
           <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSesvDlcJFVL2fLJuBxGwqdXNSP5ft3Ez24eUSG5E3YZptnexQ/viewform?usp=publish-editor"
+            src="https://thinkable-virgo-565.notion.site/ebd//ecbb3c6ab31440308c2fb121c9c00484?v=f5dad69f6e554e0a92ffd340e2455962"
             width="100%"
             height="100%"
             frameBorder="0"
