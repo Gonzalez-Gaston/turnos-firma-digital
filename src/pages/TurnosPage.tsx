@@ -1,7 +1,7 @@
 import { Calendar, ExternalLink } from "lucide-react";
 
 const NOTION_FORM_URL =
-  "https://thinkable-virgo-565.notion.site/ecbb3c6ab31440308c2fb121c9c00484";
+  "https://thinkable-virgo-565.notion.site/7650a420ff2a465bad52c7fec7d6ec1d?pvs=105";
 
 export function TurnosPage() {
   const goToForm = () => {
