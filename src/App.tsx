@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { Header } from './components/Layout/Header';
 import { Footer } from './components/Layout/Footer';
-import { ChatbotWidget } from './components/ChatbotWidget';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { HomePage } from './pages/HomePage';
 import { InformationPage } from './pages/InformationPage';
@@ -35,7 +34,7 @@ function App() {
 </Routes>
           </main>
           <Footer />
-          <ChatbotWidget />
+          
         </div>
       </Router>
     </AuthProvider>
