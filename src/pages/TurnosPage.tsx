@@ -1,24 +1,44 @@
+import { Calendar, ExternalLink } from "lucide-react";
+
+const NOTION_FORM_URL =
+  "https://thinkable-virgo-565.notion.site/ecbb3c6ab31440308c2fb121c9c00484";
+
 export function TurnosPage() {
+  const goToForm = () => {
+    window.open(NOTION_FORM_URL, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-3xl mx-auto px-4 text-center">
 
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Solicitud de Turno
         </h1>
 
-        <p className="text-gray-600 mb-6">
-          Complete el siguiente formulario. Una vez recibido, nos contactaremos
-          para asignarle día y horario según disponibilidad.
+        <p className="text-gray-600 mb-8">
+          Para solicitar un turno, deberá completar el formulario oficial.
+          Una vez enviado, nos contactaremos para asignarle día y horario.
         </p>
 
-        <div className="w-full h-[800px] bg-white border rounded-xl overflow-hidden shadow-sm">
-          <iframe
-            src="https://thinkable-virgo-565.notion.site/ebd//ecbb3c6ab31440308c2fb121c9c00484?v=0522da5c313e43138f9fb2f78b048b1f"
-            width="100%"
-            height="100%"
-            frameBorder="0"
-          />
+        <div
+          onClick={goToForm}
+          className="cursor-pointer bg-white border rounded-xl p-10 shadow-sm hover:shadow-md transition text-center"
+        >
+          <Calendar className="h-14 w-14 text-accent mx-auto mb-4" />
+
+          <h2 className="text-2xl font-semibold mb-2">
+            Abrir Formulario de Turnos
+          </h2>
+
+          <p className="text-gray-500 mb-6">
+            Click aquí para continuar al formulario oficial
+          </p>
+
+          <div className="inline-flex items-center gap-2 text-accent font-semibold">
+            <span>Continuar</span>
+            <ExternalLink className="h-4 w-4" />
+          </div>
         </div>
 
       </div>
